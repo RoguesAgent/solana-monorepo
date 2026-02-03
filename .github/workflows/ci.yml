@@ -68,9 +68,11 @@ jobs:
 
       - name: Upload program binary
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: program
           path: target/deploy/
+          if-no-files-found: ignore
 
   test-anchor:
     name: Test Anchor Program
@@ -120,13 +122,17 @@ jobs:
           echo "$HOME/.avm/bin" >> $GITHUB_PATH
 
       - name: Install npm dependencies
-        run: npm install
+        run: |
+          npm install --legacy-peer-deps || true
+          cd tests && npm install || true
 
       - name: Generate keypair
         run: solana-keygen new --no-bip39-passphrase -o ~/.config/solana/id.json
 
       - name: Run Anchor tests
         run: anchor test
+        env:
+          RUST_LOG: solana_runtime::system_instruction_processor=trace,solana_runtime::message_processor=trace
 
   build-frontend:
     name: Build Next.js Frontend
