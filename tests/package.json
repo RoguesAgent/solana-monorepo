@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "tsx --test counter.test.ts"
+    "test": "tsx --test wager.test.ts"
   },
   "devDependencies": {
     "tsx": "^4.0.0",

@@ -1,12 +1,12 @@
 [package]
-name = "counter"
+name = "wager"
 version = "0.1.0"
-description = "A simple counter program"
+description = "A Solana lottery/wager program"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "counter"
+name = "wager"
 
 [features]
 default = []

@@ -1,0 +1,29 @@
+{
+  "name": "Solana Anchor Dev",
+  "image": "mcr.microsoft.com/devcontainers/rust:1-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
+  "postCreateCommand": ".devcontainer/setup.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  },
+  "forwardPorts": [3000, 8899, 8900],
+  "portsAttributes": {
+    "3000": { "label": "Next.js Dev", "onAutoForward": "notify" },
+    "8899": { "label": "Solana Validator", "onAutoForward": "silent" },
+    "8900": { "label": "Solana Websocket", "onAutoForward": "silent" }
+  },
+  "remoteEnv": {
+    "PATH": "${containerEnv:HOME}/.local/share/solana/install/active_release/bin:${containerEnv:HOME}/.avm/bin:${containerEnv:PATH}"
+  }
+}

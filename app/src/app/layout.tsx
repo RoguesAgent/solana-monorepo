@@ -3,8 +3,8 @@ import "./globals.css";
 import { WalletProviders } from "./providers";
 
 export const metadata: Metadata = {
-  title: "Solana Counter",
-  description: "A simple Solana counter dApp",
+  title: "Solana Wager",
+  description: "A Solana lottery/wager dApp",
 };
 
 export default function RootLayout({
