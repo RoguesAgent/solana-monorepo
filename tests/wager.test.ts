@@ -207,7 +207,7 @@ describe("wager", () => {
 
     try {
       await program.methods
-        .closeRound()
+        .closeRound(new anchor.BN(2))
         .accounts({
           game: freshGamePda,
           round: freshRoundPda,
@@ -269,7 +269,7 @@ describe("wager", () => {
     for (const potentialWinner of fullRound.players) {
       try {
         await program.methods
-          .closeRound()
+          .closeRound(new anchor.BN(2))
           .accounts({
             game: gamePda,
             round: firstRoundPda,

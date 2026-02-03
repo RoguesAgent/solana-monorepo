@@ -12,5 +12,8 @@ url = "https://api.apr.dev"
 cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
+[test]
+startup_wait = 10000
+
 [scripts]
 test = "npx tsx tests/wager.test.ts"
