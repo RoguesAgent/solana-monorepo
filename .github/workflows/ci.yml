@@ -130,9 +130,12 @@ jobs:
         run: solana-keygen new --no-bip39-passphrase -o ~/.config/solana/id.json
 
       - name: Run Anchor tests
-        run: anchor test
-        env:
-          RUST_LOG: solana_runtime::system_instruction_processor=trace,solana_runtime::message_processor=trace
+        run: |
+          anchor test 2>&1 || {
+            echo "=== Test Validator Log ==="
+            cat .anchor/test-ledger/test-ledger-log.txt 2>/dev/null | tail -50 || true
+            exit 1
+          }
 
   build-frontend:
     name: Build Next.js Frontend

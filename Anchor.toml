@@ -3,7 +3,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-wager = "11111111111111111111111111111111"
+wager = "ADZLpjwwzK7cCVwKbe5JLPgqynDNXxXyajwKTU1j5gy5"
 
 [registry]
 url = "https://api.apr.dev"
@@ -14,10 +14,6 @@ wallet = "~/.config/solana/id.json"
 
 [test]
 startup_wait = 30000
-
-[test.validator]
-bind_address = "0.0.0.0"
-ledger = ".anchor/test-ledger"
 
 [scripts]
 test = "npx tsx tests/wager.test.ts"
