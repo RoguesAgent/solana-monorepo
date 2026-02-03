@@ -31,7 +31,7 @@ pub mod wager {
         instructions::place_wager(context)
     }
 
-    pub fn close_round(context: Context<CloseRoundAccountConstraints>) -> Result<()> {
-        instructions::close_round(context)
+    pub fn close_round(context: Context<CloseRoundAccountConstraints>, next_round_number: u64) -> Result<()> {
+        instructions::close_round(context, next_round_number)
     }
 }

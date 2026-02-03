@@ -5,6 +5,7 @@ const BASIS_POINTS_DENOMINATOR: u64 = 10_000;
 const MINIMUM_PLAYERS_TO_CLOSE: usize = 2;
 
 #[derive(Accounts)]
+#[instruction(next_round_number: u64)]
 pub struct CloseRoundAccountConstraints<'info> {
     #[account(
         mut,
@@ -29,7 +30,7 @@ pub struct CloseRoundAccountConstraints<'info> {
         seeds = [
             b"round",
             game.key().as_ref(),
-            &(game.current_round_number.checked_add(1).unwrap()).to_le_bytes()
+            &next_round_number.to_le_bytes()
         ],
         bump
     )]
@@ -52,10 +53,15 @@ pub struct CloseRoundAccountConstraints<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn close_round(context: Context<CloseRoundAccountConstraints>) -> Result<()> {
+pub fn close_round(context: Context<CloseRoundAccountConstraints>, next_round_number: u64) -> Result<()> {
     let round = &context.accounts.round;
     let game = &context.accounts.game;
     let clock = Clock::get()?;
+
+    require!(
+        next_round_number == game.current_round_number.checked_add(1).ok_or(CloseRoundError::MathOverflow)?,
+        CloseRoundError::MathOverflow
+    );
 
     require!(round.status == RoundStatus::Open, CloseRoundError::RoundAlreadyClosed);
     require!(
